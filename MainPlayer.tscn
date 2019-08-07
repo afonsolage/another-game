@@ -4,14 +4,27 @@
 [ext_resource path="res://scripts/MainPlayer.gd" type="Script" id=2]
 [ext_resource path="res://crosshair.gd" type="Script" id=3]
 
-
 [node name="MainPlayer" type="Spatial"]
 script = ExtResource( 2 )
 
 [node name="Camera" type="Camera" parent="."]
 far = 1024.0
 
-[node name="crosshair" type="Sprite" parent="."]
-position = Vector2( 355.372, 461.111 )
+[node name="Crosshair" type="Sprite" parent="."]
+position = Vector2( 348.35, 470.465 )
 texture = ExtResource( 1 )
+region_rect = Rect2( -39.25, -35, 148.5, 121.5 )
 script = ExtResource( 3 )
+
+[node name="PosInfo" type="Label" parent="."]
+margin_right = 95.0
+margin_bottom = 31.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+text = "Pos: (0, 0, 0)
+Target: (0, 0, 0)"
+__meta__ = {
+"_edit_use_anchors_": false
+}

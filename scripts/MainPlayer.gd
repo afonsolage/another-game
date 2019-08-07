@@ -6,6 +6,7 @@ export var turn_speed = 0.4
 export var min_angle = -90
 export var max_angle = 90
 export var boost_speed = 2
+
 export(NodePath) var terrain_path = null
 export(NodePath) var wired_cube_path = null
 
@@ -16,6 +17,7 @@ var _terrain = null
 var _wired_cube = null
 var _last_wired_cube_pos = null
 var _target_voxel = null
+var _position_info = null
 
 const Util = preload("res://scripts/utils.gd")
 
@@ -24,6 +26,7 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	_terrain = get_node(terrain_path)
 	_wired_cube = get_node(wired_cube_path)
+	_position_info = get_node("PosInfo")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):	
@@ -31,6 +34,7 @@ func _process(delta):
 		return
 	
 	update_rotations()
+	update_target()
 	
 	var forward = get_global_transform().basis.z.normalized()
 	var right = get_global_transform().basis.x.normalized()
@@ -84,16 +88,6 @@ func _input(event):
 			_pitch = min_angle + e
 		
 		_rotation_dirty = true
-		
-#		var hit = get_target_voxel()
-#		if hit == null:
-#			_target_voxel = null
-#			_wired_cube.set_visible(false)
-#			_last_wired_cube_pos = null
-#		else:
-#			_target_voxel = hit.position
-#			_wired_cube.set_visible(true)
-#			_wired_cube.translation = _target_voxel
 	
 	elif event is InputEventKey:
 		if event.pressed && event.scancode == KEY_ESCAPE:
@@ -115,6 +109,14 @@ func update_rotations():
 	set_rotation(Vector3(0, deg2rad(_yaw), 0))
 	rotate(get_transform().basis.x.normalized(), -deg2rad(_pitch))
 	_rotation_dirty = false
+
+func update_target():
+	var hit = get_target_voxel()
+	if hit == null:
+		return
+	
+	_position_info.text = "pos: %s \ntarget: %s" % [get_global_transform().origin, hit.position]
+	
 
 func get_target_voxel():
 	var origin = get_global_transform().origin
