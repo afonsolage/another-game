@@ -7,3 +7,4 @@ static func to_dir_vec(v: Vector3):
 		return Vector3.FORWARD if v.z > 0 else Vector3.BACK
 	else:
 		return Vector3.ZERO
+

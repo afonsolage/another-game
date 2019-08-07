@@ -1,11 +1,11 @@
 extends ImmediateGeometry
 
-var vertices = [Vector3(0,0,0), Vector3(1,0,0), Vector3(1,1,0), Vector3(0,1,0), 
-	Vector3(0,0,1), Vector3(1,0,1), Vector3(1,1,1), Vector3(0,1,1)]
+var vertices = [Vector3(-0.001,-0.001,-0.001), Vector3(1.001,-0.001,-0.001), Vector3(1.001,1.001,-0.001), Vector3(-0.001,1.001,-0.001), 
+	Vector3(-0.001,-0.001,1.001), Vector3(1.001,-0.001,1.001), Vector3(1.001,1.001,1.001), Vector3(-0.001,1.001,1.001)]
 
 func _process(delta):
 	clear()
-	begin(1, null) #1 = is an enum for draw line, null is for text
+	begin(Mesh.PRIMITIVE_LINES, null) #1 = is an enum for draw line, null is for text
 	
 	add_vertex(vertices[0])
 	add_vertex(vertices[1])

@@ -12,7 +12,7 @@ export(NodePath) var wired_cube_path = null
 
 var _yaw = 0
 var _pitch = 0
-var _rotation_dirty = true
+var _transform_dirty = true
 var _terrain = null
 var _wired_cube = null
 var _last_wired_cube_pos = null
@@ -32,9 +32,6 @@ func _ready():
 func _process(delta):	
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE:
 		return
-	
-	update_rotations()
-	update_target()
 	
 	var forward = get_global_transform().basis.z.normalized()
 	var right = get_global_transform().basis.x.normalized()
@@ -63,11 +60,14 @@ func _process(delta):
 	if Input.is_key_pressed(KEY_SHIFT):
 		move *= boost_speed
 	
-	if (move == Vector3.ZERO):
-		return
+	if (move != Vector3.ZERO):
+		global_translate(move)
+		_transform_dirty = true
+		
+	if _transform_dirty:
+		update_rotations()
 	
-	global_translate(move)
-	
+	update_target()
 	
 func _input(event):
 	if Input.get_mouse_mode() == Input.MOUSE_MODE_VISIBLE && \
@@ -87,7 +87,7 @@ func _input(event):
 		elif _pitch < min_angle  + e:
 			_pitch = min_angle + e
 		
-		_rotation_dirty = true
+		_transform_dirty = true
 	
 	elif event is InputEventKey:
 		if event.pressed && event.scancode == KEY_ESCAPE:
@@ -103,12 +103,9 @@ func _input(event):
 		
 
 func update_rotations():
-	if not _rotation_dirty:
-		return
-		
 	set_rotation(Vector3(0, deg2rad(_yaw), 0))
 	rotate(get_transform().basis.x.normalized(), -deg2rad(_pitch))
-	_rotation_dirty = false
+	_transform_dirty = false
 
 func update_target():
 	var hit = get_target_voxel()
@@ -116,7 +113,7 @@ func update_target():
 		return
 	
 	_position_info.text = "pos: %s \ntarget: %s" % [get_global_transform().origin, hit.position]
-	
+	_wired_cube.set_global_transform(Transform(Basis(Vector3.ZERO), hit.position))
 
 func get_target_voxel():
 	var origin = get_global_transform().origin
