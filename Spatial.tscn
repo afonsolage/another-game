@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://noise_distorted.png" type="Image" id=1]
 [ext_resource path="res://MainPlayer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/WiredCube.gd" type="Script" id=3]
+[ext_resource path="res://assets/sprite_sheet.png" type="Texture" id=4]
 
 [sub_resource type="VoxelStreamImage" id=1]
 image = ExtResource( 1 )
@@ -13,19 +14,22 @@ transparent = true
 
 [sub_resource type="Voxel" id=3]
 voxel_name = "solid"
-color = Color( 0.929412, 0.909804, 0.913725, 1 )
 geometry_type = 1
 cube_geometry/padding_y = 0.0
-cube_tiles/left = Vector2( 0, 0 )
-cube_tiles/right = Vector2( 0, 0 )
-cube_tiles/bottom = Vector2( 0, 0 )
+cube_tiles/left = Vector2( 3, 0 )
+cube_tiles/right = Vector2( 3, 0 )
+cube_tiles/bottom = Vector2( 2, 0 )
 cube_tiles/top = Vector2( 0, 0 )
-cube_tiles/back = Vector2( 0, 0 )
-cube_tiles/front = Vector2( 0, 0 )
+cube_tiles/back = Vector2( 3, 0 )
+cube_tiles/front = Vector2( 3, 0 )
 
 [sub_resource type="VoxelLibrary" id=4]
+atlas_size = 16
 voxels/0 = SubResource( 2 )
 voxels/1 = SubResource( 3 )
+
+[sub_resource type="SpatialMaterial" id=5]
+albedo_texture = ExtResource( 4 )
 
 [node name="Root" type="Spatial"]
 
@@ -34,6 +38,7 @@ stream = SubResource( 1 )
 voxel_library = SubResource( 4 )
 view_distance = 256
 viewer_path = NodePath("../MainPlayer")
+material/0 = SubResource( 5 )
 
 [node name="MainPlayer" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 70, 0 )
