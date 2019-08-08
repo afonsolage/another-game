@@ -15,8 +15,6 @@ var _pitch = 0
 var _transform_dirty = true
 var _terrain = null
 var _wired_cube = null
-var _last_wired_cube_pos = null
-var _target_voxel = null
 var _position_info = null
 
 const Util = preload("res://scripts/utils.gd")
