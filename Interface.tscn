@@ -1,9 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
+[ext_resource path="res://scripts/interface/gizmos.gd" type="Script" id=1]
 [ext_resource path="res://crosshair.png" type="Texture" id=2]
 [ext_resource path="res://crosshair.gd" type="Script" id=3]
-
-[sub_resource type="CubeMesh" id=1]
 
 [node name="Control" type="Control"]
 anchor_right = 1.0
@@ -42,13 +41,9 @@ __meta__ = {
 size = Vector2( 1000, 1000 )
 own_world = true
 transparent_bg = true
+handle_input_locally = false
 hdr = false
 render_target_update_mode = 3
-
-[node name="MeshInstance" type="MeshInstance" parent="ViewportContainer/Viewport3D"]
-transform = Transform( 0.0068677, 0.00440306, -0.0057834, 0, 0.00795653, 0.00605753, 0.00726874, -0.00416013, 0.00546431, -0.476, 0.422, 0 )
-mesh = SubResource( 1 )
-material/0 = null
 
 [node name="Camera" type="Camera" parent="ViewportContainer/Viewport3D"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10.9814 )
@@ -56,3 +51,6 @@ projection = 1
 current = true
 
 [node name="DirectionalLight" type="DirectionalLight" parent="ViewportContainer/Viewport3D"]
+
+[node name="Gizmos" type="Spatial" parent="ViewportContainer/Viewport3D"]
+script = ExtResource( 1 )

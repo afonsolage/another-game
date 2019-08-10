@@ -53,7 +53,9 @@ script = ExtResource( 3 )
 
 [node name="Interface" parent="." instance=ExtResource( 5 )]
 
-[node name="Viewport3D" parent="Interface/ViewportContainer" index="0"]
-handle_input_locally = false
+[node name="Gizmos" parent="Interface/ViewportContainer/Viewport3D" index="2"]
+main_player = NodePath("../../../../MainPlayer")
+
+[editable path="MainPlayer"]
 
 [editable path="Interface"]
