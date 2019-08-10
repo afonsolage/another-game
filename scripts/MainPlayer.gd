@@ -9,6 +9,7 @@ export var boost_speed = 2
 
 export(NodePath) var terrain_path = null
 export(NodePath) var wired_cube_path = null
+export(NodePath) var pos_info_path = null
 
 var _yaw = 0
 var _pitch = 0
@@ -16,6 +17,7 @@ var _transform_dirty = true
 var _terrain = null
 var _wired_cube = null
 var _position_info = null
+var _gizmo = null
 
 const Util = preload("res://scripts/utils.gd")
 
@@ -24,7 +26,7 @@ func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	_terrain = get_node(terrain_path)
 	_wired_cube = get_node(wired_cube_path)
-	_position_info = get_node("PosInfo")
+	_position_info = get_node(pos_info_path)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):	
@@ -98,7 +100,6 @@ func _input(event):
 				set_target_voxel()
 			elif event.button_index == BUTTON_RIGHT:
 				remove_target_voxel()
-		
 
 func update_rotations():
 	set_rotation(Vector3(0, deg2rad(_yaw), 0))

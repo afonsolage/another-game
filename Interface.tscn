@@ -1,0 +1,58 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://crosshair.png" type="Texture" id=2]
+[ext_resource path="res://crosshair.gd" type="Script" id=3]
+
+[sub_resource type="CubeMesh" id=1]
+
+[node name="Control" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Crosshair" type="Sprite" parent="."]
+position = Vector2( 348.35, 470.465 )
+texture = ExtResource( 2 )
+region_rect = Rect2( -39.25, -35, 148.5, 121.5 )
+script = ExtResource( 3 )
+
+[node name="PosInfo" type="Label" parent="."]
+margin_right = 95.0
+margin_bottom = 31.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+text = "Pos: (0, 0, 0)
+Target: (0, 0, 0)"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ViewportContainer" type="ViewportContainer" parent="."]
+size_flags_horizontal = 0
+size_flags_vertical = 0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Viewport3D" type="Viewport" parent="ViewportContainer"]
+size = Vector2( 1000, 1000 )
+own_world = true
+transparent_bg = true
+hdr = false
+render_target_update_mode = 3
+
+[node name="MeshInstance" type="MeshInstance" parent="ViewportContainer/Viewport3D"]
+transform = Transform( 0.0068677, 0.00440306, -0.0057834, 0, 0.00795653, 0.00605753, 0.00726874, -0.00416013, 0.00546431, -0.476, 0.422, 0 )
+mesh = SubResource( 1 )
+material/0 = null
+
+[node name="Camera" type="Camera" parent="ViewportContainer/Viewport3D"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10.9814 )
+projection = 1
+current = true
+
+[node name="DirectionalLight" type="DirectionalLight" parent="ViewportContainer/Viewport3D"]
